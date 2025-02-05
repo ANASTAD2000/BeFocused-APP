@@ -73,3 +73,29 @@ function displayTasks() {
     });
 }
 
+
+
+
+// Function to edit a task
+function editTask(task) {
+    taskTitle.value = task.title;
+    taskDescription.value = task.description;
+    taskPriority.value = task.priority;
+    currentlyEditing = task.id;
+    document.querySelector('button[type="submit"]').textContent = 'Update Task';
+}
+
+// Function to delete a task
+function deleteTask(taskId) {
+    if (confirm('Are you sure you want to delete this task?')) {
+        tasks = tasks.filter(task => task.id !== taskId);
+        displayTasks();
+    }
+}
+
+// Function to toggle task completion
+
+
+
+
+
