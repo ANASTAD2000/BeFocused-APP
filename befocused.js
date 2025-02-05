@@ -1,6 +1,4 @@
-// =============================================
 // Task Management Section
-// =============================================
 
 // Get task-related elements from the HTML
 const taskForm = document.getElementById('taskForm');
