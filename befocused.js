@@ -1,5 +1,6 @@
 // Task Management Section
 
+
 // Get task-related elements from the HTML
 const taskForm = document.getElementById('taskForm');
 const taskTitle = document.getElementById('taskTitle');
@@ -58,7 +59,7 @@ function displayTasks() {
         descriptionSpan.textContent = task.description;
         checkbox.checked = task.completed;
         
-       
+        
         
         // Setup task controls
         const editButton = taskElement.querySelector('.edit-task');
@@ -72,9 +73,6 @@ function displayTasks() {
         taskList.appendChild(taskElement);
     });
 }
-
-
-
 
 // Function to edit a task
 function editTask(task) {
@@ -95,7 +93,64 @@ function deleteTask(taskId) {
 
 // Function to toggle task completion
 
+// Initialize task event listeners
+taskForm.addEventListener('submit', addTask);
 
+// Timer Section
 
+// Get timer-related elements from the HTML
+const timerDisplay = document.getElementById('timer');
+const startButton = document.getElementById('startTimer');
+const pauseButton = document.getElementById('pauseTimer');
+const resetButton = document.getElementById('resetTimer');
+const workDurationInput = document.getElementById('workDuration');
 
+let timeLeft = 25 * 60; // 25 minutes in seconds
+let timerInterval = null;
 
+// Function to update timer display
+function updateTimerDisplay() {
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+    timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+}
+
+// Function to start timer
+function startTimer() {
+    if (!timerInterval) {
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            updateTimerDisplay();
+            
+            if (timeLeft === 0) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+                alert('Time is up!');
+            }
+        }, 1000);
+    }
+}
+
+// Function to pause timer
+function pauseTimer() {
+    clearInterval(timerInterval);
+    timerInterval = null;
+}
+
+// Function to reset timer
+function resetTimer() {
+    clearInterval(timerInterval);
+    timerInterval = null;
+    timeLeft = workDurationInput.value * 60;
+    updateTimerDisplay();
+}
+
+// Initialize timer event listeners
+startButton.addEventListener('click', startTimer);
+pauseButton.addEventListener('click', pauseTimer);
+resetButton.addEventListener('click', resetTimer);
+workDurationInput.addEventListener('change', resetTimer);
+
+// Initial setup
+displayTasks();
+updateTimerDisplay();
